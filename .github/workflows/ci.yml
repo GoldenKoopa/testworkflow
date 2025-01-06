@@ -43,7 +43,7 @@ jobs:
       pull-requests: write
       id-token: write
     outputs:
-      version: ${{ steps.semantic-release.outputs.new_release_version }}
+      version: ${{ steps.semantic-release.outputs.new_release_published }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -76,7 +76,7 @@ jobs:
       - name: make gradle wrapper executable
         run: chmod +x ./gradlew
       - name: build
-        run: ./gradlew build -Pversion=${{ needs.release-dry.outputs.new_release_version }}
+        run: ./gradlew build -Pversion=${{ needs.release-dry.outputs.new_release_published }}
       - name: capture build artifacts
         if: ${{ matrix.java == '21' }} # Only upload artifacts built from latest java
         uses: actions/upload-artifact@v4
@@ -93,8 +93,6 @@ jobs:
       issues: write
       pull-requests: write
       id-token: write
-    outputs:
-      version: ${{ steps.semantic-release.outputs.new_release_version }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -118,7 +116,6 @@ jobs:
           }' > .releaserc
       - name: Semantic Release
         uses: cycjimmy/semantic-release-action@v4
-        id: semantic-release
         with:
           extra_plugins: |
             @semantic-release/git
