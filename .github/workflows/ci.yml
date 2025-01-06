@@ -100,5 +100,5 @@ jobs:
                 {"path": "build/libs/*.jar", "label": "JAR file"}
               ]
             }]
-          ]
-        }' > .releaserc
+            ]
+          }' > .releaserc
