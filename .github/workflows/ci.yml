@@ -80,15 +80,6 @@ jobs:
         with:
           name: Artifacts
           path: build/libs/
-      - name: Semantic Release
-        uses: cycjimmy/semantic-release-action@v4
-        id: semantic-release
-        with:
-          extra_plugins: |
-            @semantic-release/git
-            @semantic-release/github
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Create .releaserc file
         run: |
           echo '{
@@ -102,3 +93,13 @@ jobs:
             }]
             ]
           }' > .releaserc
+      - name: Semantic Release
+        uses: cycjimmy/semantic-release-action@v4
+        id: semantic-release
+        with:
+          extra_plugins: |
+            @semantic-release/git
+            @semantic-release/github
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
