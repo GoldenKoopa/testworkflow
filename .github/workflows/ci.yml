@@ -43,7 +43,7 @@ jobs:
       pull-requests: write
       id-token: write
     outputs:
-      version: ${{ steps.semantic-release.outputs.new_release_published }}
+      version: ${{ steps.semantic-release.outputs.new_release_version }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -56,7 +56,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: echo
         run: |
-          echo ${{ steps.semantic-release.outputs.new_release_published }}
+          echo ${{ steps.semantic-release.outputs.new_release_version }}
   build:
     needs: [release-dry]
     strategy:
@@ -79,7 +79,7 @@ jobs:
       - name: make gradle wrapper executable
         run: chmod +x ./gradlew
       - name: build
-        run: ./gradlew build -Pversion=${{ needs.release-dry.outputs.new_release_published }}
+        run: ./gradlew build -Pversion=${{ needs.release-dry.outputs.new_release_version }}
       - name: capture build artifacts
         if: ${{ matrix.java == '21' }} # Only upload artifacts built from latest java
         uses: actions/upload-artifact@v4
