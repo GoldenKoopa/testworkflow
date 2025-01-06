@@ -112,7 +112,7 @@ jobs:
             "@semantic-release/release-notes-generator",
             ["@semantic-release/github", {
               "assets": [
-                {"path": "build/libs/*.jar", "label": "JAR file"}
+                {"path": "build/libs/*[!plain].jar", "label": "JAR file"}
               ]
             }]
             ]
