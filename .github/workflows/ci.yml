@@ -68,7 +68,7 @@ jobs:
           java-version: 21
           distribution: 'microsoft'
       - name: setup gradle
-        run: gradle/actions/setup-gradle@v4
+        uses: gradle/actions/setup-gradle@v4
       - name: build
         run: ./gradlew build -Pversion=${{ needs.release-dry.outputs.version }}
       - name: capture build artifacts
